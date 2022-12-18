@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+public class Test2 : MonoBehaviour
 {
 
-    private GridManager gridManager;
+    private GridManager2 gridManager;
     public GameObject kotak;
 
     private void Start()
     {
-        gridManager = new GridManager(4, 2, 10f);
+        gridManager = new GridManager2(13, 6, 15f, new Vector3(-101,-50));
     }
 
     public static Vector3 GetMouseWorldPosition()

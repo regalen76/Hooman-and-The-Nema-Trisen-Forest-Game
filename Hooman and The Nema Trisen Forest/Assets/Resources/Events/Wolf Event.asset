@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63e043af8bc074469869a5c8943362d, type: 3}
+  m_Name: Wolf Event
+  m_EditorClassIdentifier: 
+  Faction: 0
+  EventPrefab: {fileID: 1194181010671543270, guid: 21be41482e07d0c489a421ff10b5aede, type: 3}

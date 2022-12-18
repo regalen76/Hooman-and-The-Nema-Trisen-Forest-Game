@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class GridManager2 : MonoBehaviour
 {
     [SerializeField] private int width, height;
     [SerializeField] private float cellSize;
     [SerializeField] private int[,] gridArray;
+    [SerializeField] private Vector3 originPosition;
     private TextMesh[,] debugTextArray;
 
     public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPosition = default(Vector3), int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = 5000)
@@ -32,11 +33,12 @@ public class GridManager : MonoBehaviour
         return textMesh;
     }
 
-    public GridManager(int width, int height, float cellSize)
+    public GridManager2(int width, int height, float cellSize, Vector3 originPosition )
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
+        this.originPosition = originPosition;
 
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
@@ -58,13 +60,13 @@ public class GridManager : MonoBehaviour
 
     private Vector3 GetWorldPosition(int x, int y)
     {
-        return new Vector3(x, y) * cellSize;
+        return new Vector3(x, y) * cellSize + originPosition;
     }
 
     private void GetXY(Vector3 worldPosition, out int x, out int y)
     {
-        x = Mathf.FloorToInt(worldPosition.x / cellSize);
-        y = Mathf.FloorToInt(worldPosition.y / cellSize);
+        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+        y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
 
     public void SetValue(int x, int y, int value) //untuk manual
