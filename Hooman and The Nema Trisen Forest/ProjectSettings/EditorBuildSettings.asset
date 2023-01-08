@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Investigation Scene.unity
     guid: ff4eed0611193bd4da3117687e18489f
+  - enabled: 1
+    path: Assets/Scenes/Investigation Scene Sementara.unity
+    guid: 7bc2c88265acd874ba8fdfc98feefa44
   m_configObjects: {}

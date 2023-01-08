@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class DialogueManager : MonoBehaviour
 
     public Animator animator;
 
-    private Queue<string> sentences;
+    private Queue<string> sentences,names;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        names = new Queue<string>();
     }
 
     public void StartDialogue (Dialogue dialogue)
@@ -30,7 +32,11 @@ public class DialogueManager : MonoBehaviour
         Time.timeScale = 0;
         animator.SetBool("IsOpen", true);
 
-        nameText.text = dialogue.name;
+        names.Clear();
+
+        foreach(string name in dialogue.name){
+            names.Enqueue(name);
+        }
 
         sentences.Clear();
 
@@ -50,6 +56,9 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        string name = names.Dequeue();
+        nameText.text = name;
+
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
@@ -68,7 +77,25 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         Time.timeScale = 1;
-        animator.SetBool("IsOpen", false);  
-        GameManager.instance.ChangeState(GameState.SpawnEventObject);
+        animator.SetBool("IsOpen", false);
+
+        if(SceneManager.GetActiveScene().buildIndex != 2){
+            GameManager.instance.ChangeState(GameState.SpawnEventObject);
+        }
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (InvestigationGameManager.instance.state == 1)
+            {
+                InvestigationGameManager.instance.ChangeState(InvestigationState.FirstSelection);
+            }
+            else if (InvestigationGameManager.instance.state == 2)
+            {
+                InvestigationGameManager.instance.ChangeState(InvestigationState.SecondSelection);
+            }
+            else if (InvestigationGameManager.instance.state == 3)
+            {
+                InvestigationGameManager.instance.ChangeState(InvestigationState.FinishedSelection);
+            }
+        }
     }
 }

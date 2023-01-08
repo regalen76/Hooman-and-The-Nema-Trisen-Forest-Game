@@ -13,6 +13,6 @@ public class Event1 : BaseEvent
 
     private void OnMouseDown()
     {
-        SceneManager.LoadScene(1);
+        GameManager.instance.ChangeState(GameState.InvestigationMode);
     }
 }
