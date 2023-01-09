@@ -9,6 +9,7 @@ public class atas : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        print(name);
         atass.SetActive(true);
     }
 

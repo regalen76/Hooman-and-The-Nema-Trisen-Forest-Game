@@ -11,7 +11,7 @@ public class InvestigationGameManager : MonoBehaviour
     public int state;
     public GameObject botNav;
     public GameObject FinishInvestigation;
-    public GameObject[] SelectionButtons;
+    public GameObject itemButton;
 
     private void Awake()
     {
@@ -39,10 +39,7 @@ public class InvestigationGameManager : MonoBehaviour
             case InvestigationState.SecondSelection:
                 state = 3;
                 FinishInvestigation.SetActive(false);
-                for(int i = 0; i < 3; i++)
-                {
-                    SelectionButtons[i].SetActive(true);
-                }
+                itemButton.SetActive(true);
                 break;
             case InvestigationState.FinishedSelection:
                 state = 4;
