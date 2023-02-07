@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Grid Scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Investigation Scene.unity
-    guid: ff4eed0611193bd4da3117687e18489f
-  - enabled: 1
-    path: Assets/Scenes/Investigation Scene Sementara.unity
+    path: Assets/Scenes/Investigation Scene 1.unity
     guid: 7bc2c88265acd874ba8fdfc98feefa44
+  - enabled: 1
+    path: Assets/Scenes/Investigation Scene 2.unity
+    guid: 5bf97e2f0d02844409b9b09956b5a243
+  - enabled: 1
+    path: Assets/Scenes/Investigation Scene 3.unity
+    guid: 987e136625f217f4ca94b678fdaca851
+  - enabled: 1
+    path: Assets/Scenes/Investigation Scene 4.unity
+    guid: b8cfac8fe3542e64b9458cfc5110b5d6
   m_configObjects: {}

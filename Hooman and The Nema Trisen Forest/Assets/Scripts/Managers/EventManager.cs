@@ -16,31 +16,59 @@ public class EventManager : MonoBehaviour
         events = Resources.LoadAll<ScriptableEvent>("Events").ToList();
     }
 
-    public void SpawnWolf()
+    public void SpawnTree()
     {
         var wolfCount = 1;
 
         for (int i = 0; i < wolfCount; i++)
         {
             var randomPrefab = GetRandomEvent<Event1>(Faction.first);
-            var spawnedWolf = Instantiate(randomPrefab);
-            var randomSpawnTile = GridManager.Instance.GetWolfSpawnTile();
+            var spawnedTree = Instantiate(randomPrefab);
+            var randomSpawnTile = GridManager.Instance.GetTreeSpawnTile();
 
-            randomSpawnTile.SetEvent(spawnedWolf);
+            randomSpawnTile.SetEvent(spawnedTree);
         }
     }
 
-    public void SpawnChickin()
+    public void SpawnTree2()
     {
         var chickinCount = 1;
 
         for (int i = 0; i < chickinCount; i++)
         {
             var randomPrefab = GetRandomEvent<Event2>(Faction.second);
-            var spawnedChickin = Instantiate(randomPrefab);
-            var randomSpawnTile = GridManager.Instance.GetChickinSpawnTile();
+            var spawnedTree = Instantiate(randomPrefab);
+            var randomSpawnTile = GridManager.Instance.GetTree2SpawnTile();
 
-            randomSpawnTile.SetEvent(spawnedChickin);
+            randomSpawnTile.SetEvent(spawnedTree);
+        }
+    }
+
+    public void SpawnTree3()
+    {
+        var chickinCount = 1;
+
+        for (int i = 0; i < chickinCount; i++)
+        {
+            var randomPrefab = GetRandomEvent<Event3>(Faction.third);
+            var spawnedTree = Instantiate(randomPrefab);
+            var randomSpawnTile = GridManager.Instance.GetTree2SpawnTile();
+
+            randomSpawnTile.SetEvent(spawnedTree);
+        }
+    }
+
+    public void SpawnTree4()
+    {
+        var chickinCount = 1;
+
+        for (int i = 0; i < chickinCount; i++)
+        {
+            var randomPrefab = GetRandomEvent<Event4>(Faction.fourth);
+            var spawnedTree = Instantiate(randomPrefab);
+            var randomSpawnTile = GridManager.Instance.GetTreeSpawnTile();
+
+            randomSpawnTile.SetEvent(spawnedTree);
         }
     }
 

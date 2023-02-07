@@ -8,18 +8,31 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameState GameState;
+    
+    public HealthBar healthBar;
+    public GameObject gameover;
+    public GameObject truegameover;
 
-    private int whatEvent;
+    public bool tutor = false;
+    public bool first = false;
+    public int maxHealth = 100;
+    public int currentHealth;
 
     void Awake()
     {
-        instance = this;
+        if(instance != null){
+            Destroy(gameObject);
+        }else{
+            instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
-        ChangeState(GameState.GenerateGrid);
+        ChangeState(GameState.FirstCutscene);
+        currentHealth = 30;
+        healthBar.SetMaxHealth(100,currentHealth);
     }
 
     public void ChangeState(GameState newState)
@@ -27,46 +40,84 @@ public class GameManager : MonoBehaviour
         GameState = newState;
         switch (newState)
         {
+            case GameState.FirstCutscene:
+                CutscenesScript cutscene = GameObject.Find("Cutscenes").GetComponent<CutscenesScript>();
+                cutscene.cutscene1();
+                break;
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnEventDialogue:
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                {
-                    whatEvent = 1;
-                    DialogueTrigger event1 = GameObject.Find("First event").GetComponent<DialogueTrigger>();
-                    event1.TriggerDialogue();
-                }
-                else
-                {
-                    whatEvent = 2;
-                    DialogueTrigger event2 = GameObject.Find("Second event").GetComponent<DialogueTrigger>();
-                    event2.TriggerDialogue();
-                }
+                DialogueTrigger event1 = GameObject.Find("First event").GetComponent<DialogueTrigger>();
+                event1.TriggerDialogue();
                 break;
             case GameState.SpawnEventObject:
-                if (whatEvent == 1)
-                {
-                    EventManager.Instance.SpawnWolf();
-                }
-                else
-                {
-                    EventManager.Instance.SpawnChickin();
-                }
+                EventManager.Instance.SpawnTree();
                 break;
             case GameState.InvestigationMode:
+                SceneManager.LoadScene(1);
+                break; 
+            case GameState.InvestigationMode2:
                 SceneManager.LoadScene(2);
-                break;  
+                break; 
+            case GameState.InvestigationMode3:
+                SceneManager.LoadScene(3);
+                break; 
+            case GameState.InvestigationMode4:
+                SceneManager.LoadScene(4);
+                break;             
+            case GameState.Chapter1:
+                tutor = true;
+                StartCoroutine(waitCoroutine());
+                break; 
+            case GameState.GameOver:
+                postScript posted = GameObject.Find("postCanvas").GetComponent<postScript>();
+                posted.win();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+    }
+
+    IEnumerator waitCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        GridManager.Instance.GenerateGrid();
+        HealthBar bar = GameObject.Find("Health bar").GetComponent<HealthBar>();
+        bar.SetMaxHealth(100,currentHealth);
+        if(currentHealth < 15){
+            postScript posted = GameObject.Find("postCanvas").GetComponent<postScript>();
+            posted.lose();
+        }else if (currentHealth > 44) {
+            DialogueTrigger ch1event = GameObject.Find("CH1Complete").GetComponent<DialogueTrigger>();
+            ch1event.TriggerDialogue();
+        }
+        if(first == false){
+            DialogueTrigger ch1event = GameObject.Find("FirstCH1").GetComponent<DialogueTrigger>();
+            ch1event.TriggerDialogue();
+        }
+        int randomais = UnityEngine.Random.Range(0,3);
+        first = true;
+        if(randomais == 0){
+        EventManager.Instance.SpawnTree2();
+        }else if(randomais == 1){
+            EventManager.Instance.SpawnTree3();
+        }else if(randomais == 2){
+            EventManager.Instance.SpawnTree4();
         }
     }
 }
 
 public enum GameState
 {
-    GenerateGrid = 0,
-    SpawnEventDialogue = 1,
-    SpawnEventObject = 2,
-    InvestigationMode = 3
+    FirstCutscene = 0,
+    GenerateGrid = 1,
+    SpawnEventDialogue = 2,
+    SpawnEventObject = 3,
+    InvestigationMode = 4,
+    InvestigationMode2 = 5,
+    InvestigationMode3 = 6,
+    InvestigationMode4 = 7,
+    Chapter1 = 8,
+    GameOver = 9,
 }

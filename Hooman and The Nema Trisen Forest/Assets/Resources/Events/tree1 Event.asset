@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63e043af8bc074469869a5c8943362d, type: 3}
-  m_Name: Chickin Event
+  m_Name: tree1 Event
   m_EditorClassIdentifier: 
-  Faction: 1
-  EventPrefab: {fileID: 4006766784969380707, guid: b69b8d6cb6206e54abda8fa6a7629391, type: 3}
+  Faction: 0
+  EventPrefab: {fileID: 1194181010671543270, guid: 21be41482e07d0c489a421ff10b5aede, type: 3}

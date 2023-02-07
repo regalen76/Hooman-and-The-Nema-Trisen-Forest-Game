@@ -46,14 +46,16 @@ public class GridManager : MonoBehaviour
 
         cam.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
 
-        GameManager.instance.ChangeState(GameState.SpawnEventDialogue);
+        if(GameManager.instance.tutor == false){
+            GameManager.instance.ChangeState(GameState.SpawnEventDialogue);
+        }
     }
 
-    public Tile GetWolfSpawnTile()
+    public Tile GetTreeSpawnTile()
     {
         return tiles.Where(t => t.Key.x < width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
-    public Tile GetChickinSpawnTile()
+    public Tile GetTree2SpawnTile()
     {
         return tiles.Where(t => t.Key.x > width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }

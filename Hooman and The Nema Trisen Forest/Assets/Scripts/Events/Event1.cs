@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Event1 : BaseEvent
 {
-    string events = "Wolf";
+    string events = "Tree1";
     void Start()
     {
         PlayerPrefs.SetString("eventnow", events);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -10,9 +11,12 @@ public class DialogueManager : MonoBehaviour
 
     public TMP_Text nameText;
     public TMP_Text dialogueText;
+    public Image imageContainer;
+    public Sprite[] characterImage;
     public float typingSpeed;
 
     public Animator animator;
+    public GameObject[] objects;
 
     private Queue<string> sentences,names;
 
@@ -33,6 +37,13 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", true);
 
         names.Clear();
+
+        // if(SceneManager.GetActiveScene().buildIndex == 2){
+        //     objects[0].SetActive(false);
+        //     objects[1].SetActive(false);
+        //     objects[2].SetActive(false);
+        //     objects[3].SetActive(false);
+        // }
 
         foreach(string name in dialogue.name){
             names.Enqueue(name);
@@ -59,6 +70,12 @@ public class DialogueManager : MonoBehaviour
         string name = names.Dequeue();
         nameText.text = name;
 
+        if (name == "Drooid"){
+            imageContainer.sprite = characterImage[0];
+        }else if (name == "Hooman"){
+            imageContainer.sprite = characterImage[1];
+        }
+
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
@@ -79,11 +96,18 @@ public class DialogueManager : MonoBehaviour
         Time.timeScale = 1;
         animator.SetBool("IsOpen", false);
 
-        if(SceneManager.GetActiveScene().buildIndex != 2){
+        if(SceneManager.GetActiveScene().buildIndex == 0 && GameManager.instance.tutor == false){
             GameManager.instance.ChangeState(GameState.SpawnEventObject);
         }
-        if(SceneManager.GetActiveScene().buildIndex == 2)
+        if(SceneManager.GetActiveScene().buildIndex == 0 && GameManager.instance.first == true && GameManager.instance.currentHealth > 44){
+            GameManager.instance.ChangeState(GameState.GameOver);
+        }
+        if(SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
         {
+            objects[0].SetActive(true);
+            objects[1].SetActive(true);
+            objects[2].SetActive(true);
+            objects[3].SetActive(true);
             if (InvestigationGameManager.instance.state == 1)
             {
                 InvestigationGameManager.instance.ChangeState(InvestigationState.FirstSelection);

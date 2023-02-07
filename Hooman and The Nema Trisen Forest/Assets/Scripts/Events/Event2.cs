@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Event2 : BaseEvent
 {
-    string events = "Chickin";
+    string events = "Tree2";
     void Start()
     {
         PlayerPrefs.SetString("eventnow", events);
@@ -13,7 +13,7 @@ public class Event2 : BaseEvent
 
     private void OnMouseDown()
     {
-        GameManager.instance.ChangeState(GameState.InvestigationMode);
+        GameManager.instance.ChangeState(GameState.InvestigationMode2);
     }
 }
 

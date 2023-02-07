@@ -9,6 +9,8 @@ public class InvestigationGameManager : MonoBehaviour
     public InvestigationState InvestigationState;
 
     public int state;
+    public bool specialstate = false;
+    public int item;
     public GameObject botNav;
     public GameObject FinishInvestigation;
     public GameObject itemButton;
@@ -26,6 +28,7 @@ public class InvestigationGameManager : MonoBehaviour
 
     public void ChangeState(InvestigationState newState)
     {
+        
         InvestigationState = newState;
         switch (newState)
         {
@@ -35,9 +38,11 @@ public class InvestigationGameManager : MonoBehaviour
                 evented.Trigger();
                 break;
             case InvestigationState.FirstSelection:
+                specialstate = true;
                 botNav.SetActive(true);
                 break;
             case InvestigationState.SecondSelection:
+                specialstate = false;
                 state = 3;
                 FinishInvestigation.SetActive(false);
                 itemButton.SetActive(true);
